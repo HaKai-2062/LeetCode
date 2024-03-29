@@ -1,29 +1,29 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
 class Solution {
 public:
     bool hasCycle(ListNode* head)
     {
-        // Storing index, memory address
-        std::unordered_map<ListNode*, int> hashMap;
+        ListNode* slow = head;
 
-        int index = 0;
-        while (head)
+        if (!slow)
+            return false;
+
+        ListNode* fast = head->next;
+
+        while (slow != fast)
         {
-            if (hashMap.find(head) != hashMap.end())
-                return true;
-
-            hashMap.insert({head, index});
+            if (!fast)
+                return false;
             
-            head = head->next;
-            index++;
+            slow = slow->next;
+            fast = fast->next;
+
+            if (!fast)
+                return false;
+
+            // To ensure we are not accessing nullptr
+            fast = fast->next;
         }
-        return false;
+
+        return true;
     }
 };
