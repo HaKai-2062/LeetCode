@@ -13,11 +13,6 @@ public:
                 i--;
             }
         }
-        for (int i = 0; i < nums.size(); i++)
-        {
-            std::cout << nums[i] << " ";
-        }
-        std::cout << std::endl;
         return nums.size();
     }
 };
