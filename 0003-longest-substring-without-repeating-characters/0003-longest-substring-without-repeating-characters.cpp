@@ -4,32 +4,22 @@ public:
     int lengthOfLongestSubstring(std::string s)
     {
         int maxSum = 0;
-        std::string temp;
+        int left = 0;
+        std::unordered_set<int> hashSet;
+
         for (int i = 0; i < s.size(); i++)
-        {
-            int duplicateAt = -1;
-            
-            // This loop is to truncate the temp string 
-            int j;
-            for (j = 0; j < temp.size(); j++)
+        { 
+            while (hashSet.find(s[i]) != hashSet.end())
             {
-                if (temp[j] == s[i])
-                {
-                    duplicateAt = j;
-                    break;
-                }
+                hashSet.erase(s[left]);
+                left++;
             }
 
-            temp.insert(temp.end(), s[i]);
-            // shrink string to j+1
-            if (duplicateAt != -1)
-            {
-                temp = temp.substr(j + 1, temp.size());
-            }
-
-            if (temp.size() > maxSum)
-                maxSum = temp.size();
+            hashSet.insert(s[i]);
+            if (hashSet.size() > maxSum)
+                maxSum = hashSet.size();
         }
+
         return maxSum;
     }
 };
