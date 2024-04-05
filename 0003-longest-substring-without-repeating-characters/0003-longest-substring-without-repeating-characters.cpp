@@ -5,19 +5,20 @@ public:
     {
         int maxSum = 0;
         int left = 0;
-        std::unordered_set<int> hashSet;
+        std::unordered_map<char, int> hashMap;
 
         for (int i = 0; i < s.size(); i++)
-        { 
-            while (hashSet.find(s[i]) != hashSet.end())
+        {
+            if (hashMap.find(s[i]) == hashMap.end() || hashMap[s[i]] < left)
             {
-                hashSet.erase(s[left]);
-                left++;
+                hashMap[s[i]] = i;
+                maxSum = std::max(maxSum, i - left + 1);
             }
-
-            hashSet.insert(s[i]);
-            if (hashSet.size() > maxSum)
-                maxSum = hashSet.size();
+            else
+            {
+                left = hashMap[s[i]] + 1;
+                hashMap[s[i]] = i;
+            }
         }
 
         return maxSum;
