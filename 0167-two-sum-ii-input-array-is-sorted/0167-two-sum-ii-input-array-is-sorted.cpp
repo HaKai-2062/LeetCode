@@ -5,12 +5,16 @@ public:
     {
         std::vector<int> result;
         result.reserve(3);
+        int upperBound = numbers.size() - 1;
+ 
 
         for (int i = 0; i < numbers.size(); i++)
         {
             int left = numbers[i];
             int difference = target - left;
-            int search = binarySearch(numbers, difference, i+1);
+            
+            int lowerBound = i + 1;
+            int search = binarySearch(numbers, difference, lowerBound, upperBound);
 
             if (search != -1)
             {
@@ -23,10 +27,10 @@ public:
         return result;
     }
     
-    int binarySearch(std::vector<int>& numbers, int target, int lowerBound)
+    int binarySearch(std::vector<int>& numbers, int target, int lowerBound, int& upperBound)
     {
         int left = lowerBound;
-        int right = numbers.size() - 1;
+        int right = upperBound;
 
         while (left <= right)
         {
@@ -39,6 +43,7 @@ public:
             if (target < numbers[mid])
             {
                 right = mid - 1;
+                upperBound = mid - 1;
             }
             else
             {
