@@ -16,6 +16,7 @@ public:
             {
                 result.push_back(i + 1);
                 result.push_back(search + 1);
+                break;
             }
         }
 
